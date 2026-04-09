@@ -185,4 +185,4 @@ pytest
 
 ## Author
 
-Mogau Madisha — Derivco Code Skills Challenge 2026
+Waborena Harmony Madisha — Derivco Code Skills Challenge 2026

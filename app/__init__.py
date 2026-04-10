@@ -12,6 +12,11 @@ def create_app(config_name='default'):
 
     from app.models import User, Project, Comment, Milestone, CollaborationRequest
 
+    from app.routes.auth import auth_bp
+    from app.routes.feed import feed_bp
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(feed_bp)
+
     with app.app_context():
         db.create_all()
 

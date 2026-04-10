@@ -103,6 +103,12 @@ To avoid overengineering and prioritise core functionality, the following were e
 
 ---
 
+## UML Diagram
+
+![Class Diagram](docs/uml.png)
+
+---
+
 ## Entity Design
 
 | Entity | Description |

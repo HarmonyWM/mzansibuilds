@@ -5,4 +5,32 @@
 <p>Stage: {{ project.stage }}</p>
 <p>Support required: {{ project.support_required }}</p>
 <p>Posted by: {{ project.author.name }}</p>
+
+<h2>Comments</h2>
+{% for comment in project.comments %}
+    <p><strong>{{ comment.author.name }}</strong>: {{ comment.content }}</p>
+{% else %}
+    <p>No comments yet.</p>
+{% endfor %}
+
+{% if current_user.is_authenticated %}
+<form method="POST" action="{{ url_for('projects.comment', project_id=project.id) }}">
+    <textarea name="content" placeholder="Leave a comment" required></textarea>
+    <button type="submit">Comment</button>
+</form>
+{% endif %}
+
+<h2>Collaboration Requests</h2>
+{% for collab in project.collaboration_requests %}
+    <p><strong>{{ collab.author.name }}</strong>: {{ collab.message }}</p>
+{% else %}
+    <p>No collaboration requests yet.</p>
+{% endfor %}
+
+{% if current_user.is_authenticated %}
+<form method="POST" action="{{ url_for('projects.collaborate', project_id=project.id) }}">
+    <textarea name="message" placeholder="How would you like to help?" required></textarea>
+    <button type="submit">Request Collaboration</button>
+</form>
+{% endif %}
 {% endblock %}

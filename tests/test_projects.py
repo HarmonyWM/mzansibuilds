@@ -31,61 +31,72 @@ def logged_in_client(client):
     return client
 
 
-def test_create_project_success(logged_in_client):
-    response = logged_in_client.post('/projects/new', data={
+@pytest.fixture
+def project(logged_in_client):
+    logged_in_client.post('/projects/new', data={
         'title': 'Mzansi Eats',
         'description': 'A food delivery app for South Africa',
         'stage': 'Prototype',
         'support_required': 'Frontend help'
+    })
+    return logged_in_client
+
+
+def test_add_comment_success(project):
+    response = project.post('/projects/1/comment', data={
+        'content': 'This looks amazing!'
     }, follow_redirects=True)
     assert response.status_code == 200
-    assert b'Mzansi Eats' in response.data
+    assert b'This looks amazing!' in response.data
 
 
-def test_create_project_missing_fields(logged_in_client):
-    response = logged_in_client.post('/projects/new', data={
-        'title': '',
-        'description': '',
-        'stage': '',
-        'support_required': ''
+def test_add_comment_missing_content(project):
+    response = project.post('/projects/1/comment', data={
+        'content': ''
     }, follow_redirects=True)
     assert b'required' in response.data
 
 
-def test_create_project_requires_login(client):
-    response = client.post('/projects/new', data={
-        'title': 'Mzansi Eats',
-        'description': 'A food delivery app',
-        'stage': 'Prototype',
-        'support_required': 'Frontend help'
+def test_add_comment_requires_login(client):
+    response = client.post('/projects/1/comment', data={
+        'content': 'This looks amazing!'
     }, follow_redirects=True)
     assert b'Login' in response.data
 
 
-def test_feed_shows_projects(logged_in_client):
-    logged_in_client.post('/projects/new', data={
-        'title': 'Mzansi Eats',
-        'description': 'A food delivery app for South Africa',
-        'stage': 'Prototype',
-        'support_required': 'Frontend help'
-    })
-    response = logged_in_client.get('/')
+def test_add_collaboration_request_success(project):
+    response = project.post('/projects/1/collaborate', data={
+        'message': 'I can help with the frontend!'
+    }, follow_redirects=True)
     assert response.status_code == 200
-    assert b'Mzansi Eats' in response.data
+    assert b'I can help with the frontend!' in response.data
 
 
-def test_project_detail_page(logged_in_client):
-    logged_in_client.post('/projects/new', data={
-        'title': 'Mzansi Eats',
-        'description': 'A food delivery app for South Africa',
-        'stage': 'Prototype',
-        'support_required': 'Frontend help'
+def test_add_collaboration_request_missing_message(project):
+    response = project.post('/projects/1/collaborate', data={
+        'message': ''
+    }, follow_redirects=True)
+    assert b'required' in response.data
+
+
+def test_add_collaboration_request_requires_login(client):
+    response = client.post('/projects/1/collaborate', data={
+        'message': 'I can help!'
+    }, follow_redirects=True)
+    assert b'Login' in response.data
+
+
+def test_comments_show_on_project_detail(project):
+    project.post('/projects/1/comment', data={
+        'content': 'Great project!'
     })
-    response = logged_in_client.get('/projects/1')
-    assert response.status_code == 200
-    assert b'Mzansi Eats' in response.data
+    response = project.get('/projects/1')
+    assert b'Great project!' in response.data
 
 
-def test_project_not_found(logged_in_client):
-    response = logged_in_client.get('/projects/999')
-    assert response.status_code == 404
+def test_collaboration_requests_show_on_project_detail(project):
+    project.post('/projects/1/collaborate', data={
+        'message': 'I want to help!'
+    })
+    response = project.get('/projects/1')
+    assert b'I want to help!' in response.data

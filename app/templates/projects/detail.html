@@ -1,36 +1,75 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>{{ project.title }}</h1>
-<p>{{ project.description }}</p>
-<p>Stage: {{ project.stage }}</p>
-<p>Support required: {{ project.support_required }}</p>
-<p>Posted by: {{ project.author.name }}</p>
+<div class="container">
+    <div class="card">
+        <span class="badge">{{ project.stage }}</span>
+        <h1>{{ project.title }}</h1>
+        <p>{{ project.description }}</p>
+        <p class="meta">Support needed: {{ project.support_required }}</p>
+        <p class="meta">By {{ project.author.name }}</p>
 
-<h2>Comments</h2>
-{% for comment in project.comments %}
-    <p><strong>{{ comment.author.name }}</strong>: {{ comment.content }}</p>
-{% else %}
-    <p>No comments yet.</p>
-{% endfor %}
+        {% if current_user.is_authenticated and current_user.id == project.user_id and project.status == 'active' %}
+        <hr>
+        <form method="POST" action="{{ url_for('milestones.mark_complete', project_id=project.id) }}">
+            <button type="submit" class="btn btn-dark">Mark as Complete</button>
+        </form>
+        {% endif %}
+    </div>
 
-{% if current_user.is_authenticated %}
-<form method="POST" action="{{ url_for('projects.comment', project_id=project.id) }}">
-    <textarea name="content" placeholder="Leave a comment" required></textarea>
-    <button type="submit">Comment</button>
-</form>
-{% endif %}
+    <h2>Milestones</h2>
+    {% for milestone in project.milestones %}
+        <div class="card">
+            <p>{{ milestone.content }}</p>
+        </div>
+    {% else %}
+        <p class="empty">No milestones yet.</p>
+    {% endfor %}
 
-<h2>Collaboration Requests</h2>
-{% for collab in project.collaboration_requests %}
-    <p><strong>{{ collab.author.name }}</strong>: {{ collab.message }}</p>
-{% else %}
-    <p>No collaboration requests yet.</p>
-{% endfor %}
+    {% if current_user.is_authenticated %}
+    <div class="card">
+        <form method="POST" action="{{ url_for('milestones.new_milestone', project_id=project.id) }}">
+            <textarea name="content" placeholder="Post a milestone update"></textarea>
+            <button type="submit">Add Milestone</button>
+        </form>
+    </div>
+    {% endif %}
 
-{% if current_user.is_authenticated %}
-<form method="POST" action="{{ url_for('projects.collaborate', project_id=project.id) }}">
-    <textarea name="message" placeholder="How would you like to help?" required></textarea>
-    <button type="submit">Request Collaboration</button>
-</form>
-{% endif %}
+    <h2>Comments</h2>
+    {% for comment in project.comments %}
+        <div class="card">
+            <p><strong>{{ comment.author.name }}</strong></p>
+            <p>{{ comment.content }}</p>
+        </div>
+    {% else %}
+        <p class="empty">No comments yet.</p>
+    {% endfor %}
+
+    {% if current_user.is_authenticated %}
+    <div class="card">
+        <form method="POST" action="{{ url_for('projects.comment', project_id=project.id) }}">
+            <textarea name="content" placeholder="Leave a comment"></textarea>
+            <button type="submit">Comment</button>
+        </form>
+    </div>
+    {% endif %}
+
+    <h2>Collaboration Requests</h2>
+    {% for collab in project.collaboration_requests %}
+        <div class="card">
+            <p><strong>{{ collab.author.name }}</strong></p>
+            <p>{{ collab.message }}</p>
+        </div>
+    {% else %}
+        <p class="empty">No collaboration requests yet.</p>
+    {% endfor %}
+
+    {% if current_user.is_authenticated %}
+    <div class="card">
+        <form method="POST" action="{{ url_for('projects.collaborate', project_id=project.id) }}">
+            <textarea name="message" placeholder="How would you like to help?"></textarea>
+            <button type="submit">Request Collaboration</button>
+        </form>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

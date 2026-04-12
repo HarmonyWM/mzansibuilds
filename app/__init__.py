@@ -15,9 +15,14 @@ def create_app(config_name='default'):
     from app.routes.auth import auth_bp
     from app.routes.feed import feed_bp
     from app.routes.projects import projects_bp
+    from app.routes.milestones import milestones_bp
+    from app.routes.celebration import celebration_bp
+
     app.register_blueprint(auth_bp)
     app.register_blueprint(feed_bp)
     app.register_blueprint(projects_bp)
+    app.register_blueprint(milestones_bp)
+    app.register_blueprint(celebration_bp)
 
     with app.app_context():
         db.create_all()

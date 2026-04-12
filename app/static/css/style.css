@@ -1,0 +1,228 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    color: #111;
+}
+
+/* NAV */
+nav {
+    background-color: #1a1a1a;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav .brand {
+    color: #2ecc71;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+nav .nav-links a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 24px;
+    font-size: 0.95rem;
+}
+
+nav .nav-links a:hover {
+    color: #2ecc71;
+}
+
+/* FLASH MESSAGES */
+.flash {
+    background-color: #2ecc71;
+    color: #fff;
+    padding: 12px 32px;
+    font-size: 0.9rem;
+}
+
+/* CONTAINER */
+.container {
+    max-width: 860px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* PAGE TITLE */
+h1 {
+    font-size: 1.8rem;
+    margin-bottom: 24px;
+    color: #1a1a1a;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin: 28px 0 12px;
+    color: #1a1a1a;
+}
+
+/* CARDS */
+.card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 20px;
+}
+
+.card h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: #1a1a1a;
+}
+
+.card p {
+    color: #444;
+    font-size: 0.95rem;
+    margin: 6px 0;
+}
+
+.card .meta {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 10px;
+}
+
+.badge {
+    display: inline-block;
+    background-color: #2ecc71;
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+}
+
+/* FORMS */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    padding: 12px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    width: 100%;
+    background: #fff;
+    color: #111;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: #2ecc71;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+button[type="submit"],
+.btn {
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    font-weight: 600;
+    align-self: flex-start;
+}
+
+button[type="submit"]:hover,
+.btn:hover {
+    background-color: #27ae60;
+}
+
+.btn-dark {
+    background-color: #1a1a1a;
+    color: #fff;
+}
+
+.btn-dark:hover {
+    background-color: #333;
+}
+
+/* AUTH PAGES */
+.auth-wrapper {
+    max-width: 420px;
+    margin: 80px auto;
+    padding: 0 20px;
+}
+
+.auth-wrapper h1 {
+    margin-bottom: 28px;
+}
+
+.auth-wrapper .switch {
+    margin-top: 16px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.auth-wrapper .switch a {
+    color: #2ecc71;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* LINKS */
+a {
+    color: #2ecc71;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* EMPTY STATE */
+.empty {
+    color: #888;
+    font-size: 0.95rem;
+    padding: 16px 0;
+}
+
+/* CELEBRATION WALL */
+.celebration-card {
+    background: #1a1a1a;
+    color: #fff;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 20px;
+}
+
+.celebration-card h2 {
+    color: #2ecc71;
+    margin-top: 0;
+}
+
+.celebration-card p {
+    color: #ccc;
+    font-size: 0.95rem;
+    margin: 6px 0;
+}
+
+/* DIVIDER */
+hr {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 24px 0;
+}

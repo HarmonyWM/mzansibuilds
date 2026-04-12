@@ -2,14 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MzansiBuilds</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+    <nav>
+        <a href="{{ url_for('feed.index') }}" class="brand">MzansiBuilds</a>
+        <div class="nav-links">
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('projects.new_project') }}">New Project</a>
+                <a href="{{ url_for('celebration.index') }}">Celebration Wall</a>
+                <a href="{{ url_for('auth.logout') }}">Logout ({{ current_user.name }})</a>
+            {% else %}
+                <a href="{{ url_for('feed.index') }}">Feed</a>
+                <a href="{{ url_for('celebration.index') }}">Celebration Wall</a>
+                <a href="{{ url_for('auth.login') }}">Login</a>
+                <a href="{{ url_for('auth.register') }}">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+
     {% with messages = get_flashed_messages() %}
         {% for message in messages %}
-            <p>{{ message }}</p>
+            <div class="flash">{{ message }}</div>
         {% endfor %}
     {% endwith %}
+
     {% block content %}{% endblock %}
 </body>
 </html>

@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>New Project</h1>
-<form method="POST">
-    <input type="text" name="title" placeholder="Project title" required>
-    <textarea name="description" placeholder="Description" required></textarea>
-    <input type="text" name="stage" placeholder="Stage (e.g. Idea, Prototype, In Progress)">
-    <input type="text" name="support_required" placeholder="Support required">
-    <button type="submit">Create Project</button>
-</form>
+<div class="container">
+    <h1>Share what you're building</h1>
+    <div class="card">
+        <form method="POST">
+            <input type="text" name="title" placeholder="Project title" required>
+            <textarea name="description" placeholder="What are you building?" required></textarea>
+            <input type="text" name="stage" placeholder="Stage (e.g. Idea, Prototype, In Progress)">
+            <input type="text" name="support_required" placeholder="What support do you need?">
+            <button type="submit">Post Project</button>
+        </form>
+    </div>
+</div>
 {% endblock %}

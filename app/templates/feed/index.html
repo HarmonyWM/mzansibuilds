@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>MzansiBuilds — Feed</h1>
-{% for project in projects %}
-    <div>
-        <h2>{{ project.title }}</h2>
-        <p>{{ project.description }}</p>
-        <p>Stage: {{ project.stage }}</p>
-        <p>Support required: {{ project.support_required }}</p>
-        <p>By: {{ project.author.name }}</p>
-        <a href="{{ url_for('projects.detail', project_id=project.id) }}">View</a>
-    </div>
-{% else %}
-    <p>No projects yet. Be the first to post one.</p>
-{% endfor %}
+<div class="container">
+    <h1>What developers are building</h1>
+    {% for project in projects %}
+        <div class="card">
+            <span class="badge">{{ project.stage }}</span>
+            <h2><a href="{{ url_for('projects.detail', project_id=project.id) }}">{{ project.title }}</a></h2>
+            <p>{{ project.description }}</p>
+            <p class="meta">Support needed: {{ project.support_required }}</p>
+            <p class="meta">By {{ project.author.name }}</p>
+        </div>
+    {% else %}
+        <p class="empty">No projects yet. Be the first to post one.</p>
+    {% endfor %}
+</div>
 {% endblock %}

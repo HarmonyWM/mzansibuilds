@@ -12,6 +12,9 @@ def new_milestone(project_id):
     project = get_project_by_id(project_id)
     if not project:
         abort(404)
+    if project.user_id != current_user.id:
+        flash('Only the project owner can add milestones.')
+        return redirect(url_for('projects.detail', project_id=project_id))
 
     content = request.form.get('content', '').strip()
     if not content:
@@ -28,6 +31,9 @@ def mark_complete(project_id):
     project = get_project_by_id(project_id)
     if not project:
         abort(404)
+    if project.user_id != current_user.id:
+        flash('Only the project owner can mark it as complete.')
+        return redirect(url_for('projects.detail', project_id=project_id))
 
     complete_project(project_id)
     return redirect(url_for('celebration.index'))

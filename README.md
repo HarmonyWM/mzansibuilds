@@ -133,12 +133,12 @@ To avoid overengineering and prioritise core functionality, the following were e
 
 | Phase | Focus | Status |
 |---|---|---|
-| Phase 1 | Project setup, scaffold and database models | In Progress |
-| Phase 2 | User registration, login and auth tests | Pending |
-| Phase 3 | Project creation, feed and feature tests | Pending |
-| Phase 4 | Comments, collaboration requests and tests | Pending |
-| Phase 5 | Milestones, Celebration Wall and tests | Pending |
-| Phase 6 | Documentation, validation and security | Pending |
+| Phase 1 | Project setup, scaffold and database models | Complete |
+| Phase 2 | User registration, login and auth tests | Complete |
+| Phase 3 | Project creation, feed and feature tests | Complete |
+| Phase 4 | Comments, collaboration requests and tests | Complete |
+| Phase 5 | Milestones, Celebration Wall and tests | Complete |
+| Phase 6 | Documentation, validation and security | Complete |
 | Phase 7 | Stretch goals | Pending |
 
 ---
@@ -161,6 +161,18 @@ mzansibuilds/
 
 ---
 
+## Security Considerations
+
+- Passwords are hashed using Werkzeug's `generate_password_hash`
+- All protected routes require authentication via Flask-Login
+- Only project owners can add milestones or mark a project as complete
+- Email format and password length are validated on registration
+- Secret key is loaded from environment variables via `.env`
+- `.env` is excluded from version control via `.gitignore`
+- All form inputs are validated server-side before processing
+
+---
+
 ## Setup Instructions
 
 ```bash
@@ -174,6 +186,9 @@ venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
+
+# Set up environment variables
+copy .env.example .env
 
 # Run the application
 python run.py
